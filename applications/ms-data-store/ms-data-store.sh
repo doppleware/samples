@@ -4,16 +4,16 @@
 echo "****************************************************************"
 echo "Updating System"
 echo "****************************************************************"
-apt-get update -y
+sudo apt-get update -y
 
 
 echo "****************************************************************"
 echo "Installing NodeJS"
 echo "****************************************************************"
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-apt-get install -y nodejs
+sudo apt-get install -y nodejs
 node -v
-npm install npm --global
+sudo npm install npm --global
 
 
 
@@ -29,7 +29,7 @@ echo "****************************************************************"
 echo "Installing applicaion dependencies"
 echo "****************************************************************"
 cd sample_micro_services_nodejs_source/db || exit
-npm install;
+sudo npm install;
 
 #!/usr/bin/env bash
 echo "****************************************************************"
