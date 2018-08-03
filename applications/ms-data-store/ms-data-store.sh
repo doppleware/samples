@@ -20,7 +20,7 @@ sudo npm install npm --global
 echo "****************************************************************"
 echo "Get the web application from github"
 echo "****************************************************************"
-mkdir /home/artifacts
+sudo mkdir /home/artifacts
 cd /home/artifacts || exit
 git clone https://github.com/cloudshell-colony/sample_micro_services_nodejs_source.git
 
