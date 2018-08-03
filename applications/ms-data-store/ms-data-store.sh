@@ -22,7 +22,7 @@ echo "Get the web application from github"
 echo "****************************************************************"
 sudo mkdir /home/artifacts
 cd /home/artifacts || exit
-git clone https://github.com/cloudshell-colony/sample_micro_services_nodejs_source.git
+sudo git clone https://github.com/cloudshell-colony/sample_micro_services_nodejs_source.git
 
 
 echo "****************************************************************"
