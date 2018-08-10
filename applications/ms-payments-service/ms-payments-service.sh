@@ -4,30 +4,37 @@
 echo "****************************************************************"
 echo "Updating System"
 echo "****************************************************************"
-apt-get update -y
+sudo apt-get update -y
 
 
 echo "****************************************************************"
 echo "Installing NodeJS"
 echo "****************************************************************"
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-apt-get install -y nodejs
+sudo apt-get install -y nodejs
 node -v
-npm install npm --global
+sudo npm install npm --global
 
 
 
 echo "****************************************************************"
 echo "Get the web application from github"
 echo "****************************************************************"
-mkdir /home/artifacts
+sudo mkdir /home/artifacts
 cd /home/artifacts || exit
-git clone https://github.com/cloudshell-colony/sample_micro_services_nodejs_source.git
+sudo git clone https://github.com/cloudshell-colony/sample_micro_services_nodejs_source.git
 
 
 echo "****************************************************************"
 echo "Installing applicaion dependencies"
 echo "****************************************************************"
 cd sample_micro_services_nodejs_source/payment-service || exit
-npm install;
+sudo npm install;
+
+echo "****************************************************************"
+echo "Starting Server"
+echo "****************************************************************"
+cd /home/artifacts/sample_micro_services_nodejs_source/payment-service || exit
+
+node app.js "$DATASTORE_ADDRESS":3004; > /dev/null &
 
