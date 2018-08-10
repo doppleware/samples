@@ -36,5 +36,5 @@ echo "Starting Server"
 echo "****************************************************************"
 cd /home/artifacts/sample_micro_services_nodejs_source/payment-service || exit
 
-node app.js "$DATASTORE_ADDRESS":3004; > /dev/null &
+node app.js "$DATASTORE_ADDRESS":3004 > /dev/null &
 
