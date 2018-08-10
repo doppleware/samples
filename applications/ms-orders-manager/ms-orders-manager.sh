@@ -37,6 +37,6 @@ echo "Starting the node application"
 echo "****************************************************************"
 cd /home/artifacts/sample_micro_services_nodejs_source/order-service || exit
 
-node app.js "$PAYMENTS_MS_ADDRESS":3001 "DATASTORE_MS_ADDRESS":3004 > /dev/null &
+node app.js "$PAYMENTS_MS_ADDRESS":3001 "$DATASTORE_MS_ADDRESS":3004 > /dev/null &
 
 
