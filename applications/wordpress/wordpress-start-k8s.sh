@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 echo "****************************************************************"
-echo "Starting Rails Server"
+echo "Restarting Apache"
 echo "****************************************************************"
-
-cd /home/artifacts/sample_rails_source/website || exit
-rails server --binding=localhost
-
+service apache2 restart
+while ps -p "$(pgrep apache2)" > /dev/null ; do sleep 1; done;

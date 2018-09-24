@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 echo "****************************************************************"
-echo "Starting Rails Server"
+echo "Restarting MYSQL"
 echo "****************************************************************"
-
-cd /home/artifacts/sample_rails_source/website || exit
-rails server --binding=localhost
-
+service mysql restart
+while ps -p "$(pgrep mysql)" > /dev/null ; do sleep 1; done;
