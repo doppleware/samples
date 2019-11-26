@@ -49,7 +49,7 @@ infrastructure:
   connectivity:
     green_host: green.pm.com
     virtual_network:
-        id: prod
+        id: prod_group/prod
         subnets:
             gateway:
             - gateway
