@@ -44,3 +44,16 @@ applications:
       # only when the database is ready
       depends_on:
         - mysql
+
+infrastructure:
+  connectivity:
+    green_host: green.pm.com
+    virtual_network:
+        id: prod
+        subnets:
+            gateway:
+            - gateway
+            management: 
+            - management
+            application: 
+            - application
