@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# For Debugging (print env. variables, define command tracing)
-# set -o xtrace
-# env
-# set
+# Stop Script on Error
+set -e
 
+# For Debugging (print env. variables into a file)  
+printenv > /var/log/colony-vars-"$(basename "$BASH_SOURCE" .sh)".txt
 
 # Update packages and Upgrade system
 echo "****************************************************************"
@@ -39,13 +39,22 @@ echo "****************************************************************"
 echo "Prepare the environment configuration file that will be consumed by the servlet"
 echo "****************************************************************"
 mkdir /home/user/.config/colony-java-spring-sample -p
+
+if [ "$DB_HOSTNAME" == "none" ]; then
+    DB_HOSTNAME="mysql.$DOMAIN_NAME"
+fi
+
+jdbc_url=jdbc:mysql://$DB_HOSTNAME:3306/$DB_NAME
+if [ "$USE_SSL" = true ]; then
+    jdbc_url="${jdbc_url}?useSSL=true"
+fi
+
 bash -c "cat >> /home/user/.config/colony-java-spring-sample/app.properties" <<EOL
 # Dadabase connection settings:
-jdbc.url=jdbc:mysql://mysql.$DOMAIN_NAME:3306/$DB_NAME
+jdbc.url=$jdbc_url
 jdbc.username=$DB_USER
 jdbc.password=$DB_PASS
 EOL
-
 
 echo "****************************************************************"
 echo "Deploy to TomCat"
@@ -56,7 +65,4 @@ rm -rf /var/lib/tomcat8/webapps/ROOT
 # deploy the application as the ROOT web application
 cp sample_java_spring_source/artifacts/colony-java-spring-sample-1.0.0-BUILD-SNAPSHOT.war /var/lib/tomcat8/webapps/ROOT.war
 
-
 systemctl start tomcat8
-
-

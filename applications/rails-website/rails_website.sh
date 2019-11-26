@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-# For Debugging (print env. variables, define command tracing)
-# set -o xtrace
-# env
-# set
+# Stop Script on Error
+set -e
+
+# For Debugging (print env. variables into a file)  
+printenv > /var/log/colony-vars-"$(basename "$BASH_SOURCE" .sh)".txt
 
 
 # Update packages and Upgrade system
@@ -24,26 +25,19 @@ echo "****************************************************************"
 echo "Installing Ruby"
 echo "****************************************************************"
 apt-get install ruby-full -y 
-ruby -v  # checking ruby by printing the installed version
-
-
-echo "****************************************************************"
-echo "Installing NodeJS"
-echo "****************************************************************"
-apt-get install nodejs -y
-
+echo 'gem: --no-document' >> ~/.gemrc
+gem update --system
 
 echo "****************************************************************"
 echo "Installing Rails"
 echo "****************************************************************"
-gem install rails
-
+gem install rails -v 3.0.1
 
 echo "****************************************************************"
 echo "Installing MySQL Client"
 echo "****************************************************************"
 apt-get install mysql-client -y
-apt-get install libmysqlclient-dev -y
+apt-get install libssl-dev libmysqlclient-dev -y
 gem install mysql2
 
 
@@ -54,8 +48,9 @@ mkdir /home/artifacts
 cd /home/artifacts || exit
 git clone https://github.com/cloudshell-colony/sample_rails_source.git
 
+
 cd /home/artifacts/sample_rails_source/website || exit
-bundle install
+bundle install 
 
 
 echo "****************************************************************"

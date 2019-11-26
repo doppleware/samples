@@ -15,6 +15,8 @@ inputs:
   - DB_USER
   - DB_PASS
   - DB_NAME
+  - DB_HOSTNAME: none
+  - USE_SSL: false
 
 # This section defines the infrastructure requirements
 # for the application
@@ -65,8 +67,8 @@ configuration:
   # the ports defined in the connectivity section
   # to validate it is up
   healthcheck:
-    wait_for_ports: ALL
-    timeout: 180
+    script: healthcheck.sh
+    timeout: 600
 
 debugging:
   connection_protocol: SSH
